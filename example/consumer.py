@@ -1,21 +1,24 @@
-from channels.generic.websocket import WebsocketConsumer
+# consumers.py
+
+from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
-class DataConsumer(WebsocketConsumer):
-    def connect(self):
-        self.accept()
+class PiConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.accept()
 
-    def disconnect(self, close_code):
+    async def disconnect(self, close_code):
         pass
 
-    def receive(self, text_data):
+    async def receive(self, text_data):
+        # Handle incoming message from Raspberry Pi
         text_data_json = json.loads(text_data)
-        data = text_data_json['data']
+        message = text_data_json['message']
 
-        # Process the received data and update the page
-        self.update_page(data)
+        # Process message (you can add your custom logic here)
+        response_message = f"Received message from Raspberry Pi: {message}"
 
-    def update_page(self, data):
-        self.send(text_data=json.dumps({
-            'data': data
+        # Send response back to Raspberry Pi
+        await self.send(text_data=json.dumps({
+            'message': response_message
         }))

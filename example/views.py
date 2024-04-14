@@ -12,5 +12,10 @@ def index(request):
             <p>The current time is { now }.</p>
         </body>
     </html>
-    '''
-    return HttpResponse(html)
+   '''
+    # views.py
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')

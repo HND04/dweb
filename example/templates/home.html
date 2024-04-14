@@ -1,0 +1,29 @@
+<!-- home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry Pi Data Display</title>
+    <script>
+        // WebSocket connection
+        var ws = new WebSocket("ws://dweb-ashy.vercel.app/ws/pi/");
+
+        // Function to handle messages received from WebSocket
+        ws.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            document.getElementById("message").innerHTML = data.message;
+        };
+
+        // Function to handle errors
+        ws.onerror = function(event) {
+            console.error("WebSocket error:", event);
+        };
+    </script>
+</head>
+<body>
+    <h1>Raspberry Pi Data Display</h1>
+    <div id="message"></div>
+</body>
+</html>

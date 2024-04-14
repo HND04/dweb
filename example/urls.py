@@ -1,9 +1,10 @@
 # example/urls.py
 from django.urls import path
 
-from example.views import index
+from example.views import index,home
 
 
 urlpatterns = [
-    path('', index),
+    path('', home),
+    path('index/', index),
 ]
